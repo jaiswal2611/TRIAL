@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Nandi voice test (local only)</title>
+<style>body{font:16px/1.6 system-ui,Segoe UI,sans-serif;max-width:720px;margin:32px auto;padding:0 20px;color:#2b2927;background:#faf8f5}
+h1{font:600 30px Georgia,serif}button{font:600 15px system-ui;padding:10px 16px;margin:4px 6px 4px 0;border:1px solid #2b2927;background:#2b2927;color:#faf8f5;cursor:pointer}
+button.alt{background:transparent;color:#2b2927}pre{background:#eae4dc;padding:14px;white-space:pre-wrap;min-height:120px;border-left:3px solid #c5a880}.note{color:#6e6a64;font-size:14px}</style></head>
+<body><h1>Nandi voice test</h1>
+<p class="note">This page is for testing on your own computer. <b>Delete this file before you publish the website.</b> It never shows your API key.</p>
+<h2>1. Is the server set up?</h2><button id="chk">Check set-up</button>
+<h2>2. ElevenLabs voices</h2><button id="hi">Play Hindi voice</button><button id="en">Play English voice</button>
+<h2>3. Browser voice (the fallback)</h2><button class="alt" id="bhi">Browser Hindi</button><button class="alt" id="ben">Browser English</button>
+<h2>Result</h2><pre id="log" aria-live="polite">Press a button.</pre>
+<script>
+(function(){
+var log=document.getElementById('log'),cur=null;
+function say(t){log.textContent=t}
+var SAMPLES={hi:'नमस्ते! मैं नंदी हूँ, आपका स्माइल गाइड। मैं आपकी कैसे मदद कर सकता हूँ?',en:'Namaste! I am Nandi, your smile guide. How can I help you today?'};
+document.getElementById('chk').onclick=function(){say('Checking...');fetch('api/nandi-voice.php?check=1',{credentials:'same-origin'}).then(function(r){return r.text().then(function(t){say('HTTP '+r.status+'\n'+t+'\n\nkey_found must be true, curl_available true, and ca_bundle_found true on Windows.')})}).catch(function(e){say('Could not reach the PHP endpoint: '+e.message+'\n\nIs the site running through START-NANDI.bat (PHP), not by double-clicking the HTML file?')})};
+function play(lang){say('Asking ElevenLabs for the '+(lang==='hi'?'Hindi':'English')+' voice...');var t0=Date.now();
+fetch('api/nandi-voice.php',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({lang:lang,text:SAMPLES[lang]})}).then(function(r){
+ if(!r.ok)return r.text().then(function(t){say('HTTP '+r.status+' after '+(Date.now()-t0)+' ms\n'+t+'\n\nSee the guide section "If something does not work".')});
+ return r.blob().then(function(b){if(cur)cur.pause();var u=URL.createObjectURL(b);cur=new Audio(u);cur.onended=function(){URL.revokeObjectURL(u);say(log.textContent+'\nFinished.')};say('HTTP 200, '+b.type+', '+Math.round(b.size/1024)+' KB, after '+(Date.now()-t0)+' ms.\nPlaying now. Listen: is this the correct '+(lang==='hi'?'Hindi':'English')+' voice?');return cur.play().catch(function(e){say(log.textContent+'\nThe browser blocked playback: '+e.message)})})}).catch(function(e){say('Network problem: '+e.message)})}
+document.getElementById('hi').onclick=function(){play('hi')};document.getElementById('en').onclick=function(){play('en')};
+function browser(lang){if(!window.speechSynthesis){say('This browser has no speech synthesis.');return}var v=speechSynthesis.getVoices().filter(function(x){return x.lang.toLowerCase().indexOf(lang==='hi'?'hi':'en')===0});speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(SAMPLES[lang]);u.lang=lang==='hi'?'hi-IN':'en-IN';speechSynthesis.speak(u);say('Browser voice requested ('+u.lang+'). Matching voices installed in this browser: '+v.length+(v.length?'':'\n(Windows may need the Hindi speech language pack for this to be audible.)'))}
+document.getElementById('bhi').onclick=function(){browser('hi')};document.getElementById('ben').onclick=function(){browser('en')};
+})();
+</script></body></html>

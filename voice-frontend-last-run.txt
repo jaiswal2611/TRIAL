@@ -1,0 +1,27 @@
+PASS English: Nandi asks the server for the English voice | [{'lang': 'en', 'text': 'We are closed at the moment, and open again today at 5 pm. Monday to Saturday: 10 am to 2 pm and 5 pm to 8 pm. Sunday: 10 am to 2 pm.'}]
+PASS English: request carries only lang and text (no voice ID, no key)
+PASS English: audio from the server is played | [{'played': True, 'paused': False, 'ended': False}]
+PASS English: browser voice is not used when ElevenLabs works
+PASS English: sent text is at most 450 characters
+PASS English: key never appears in page or storage
+PASS Closing Nandi stops audio that is still playing
+PASS Hindi: Nandi asks for the Hindi voice | hi
+PASS Hindi: the text sent is Hindi (Devanagari)
+PASS Hindi: audio is played
+PASS Missing key: falls back to the browser voice (en-IN) | [{'lang': 'en-IN', 'text': 'We are closed at the moment, and open again today at 5 pm. Monday to Saturday: 10 am to 2 pm and 5 pm to 8 pm. Sunday: 10 am to 2 pm.'}]
+PASS Missing key: Nandi stops calling the server for the rest of the visit | (1, 1)
+PASS Hindi fallback uses hi-IN browser voice | [{'lang': 'hi-IN', 'text': 'हम 80, ब्लड बैंक रोड, बसंत विहार स्पेशल, दादाबाड़ी, कोटा, राजस्थान 324009 पर हैं, पारिख हॉस्पिटल के पास।'}]
+PASS Rate limit (429): falls back, and tries ElevenLabs again next time | (1, 2)
+PASS ElevenLabs/server failure (502): falls back to browser voice
+PASS Network failure: falls back to browser voice
+PASS Static hosting without PHP (404): browser voice, and no repeated requests
+PASS A non-audio 200 reply is not played; falls back
+PASS Voice switched off: no server calls, no audio
+PASS Mobile (390px wide): ElevenLabs audio plays
+PASS Opened as a file (no PHP): uses browser voice, makes no server calls
+PASS index: no JavaScript or CSP errors
+PASS treatments: no JavaScript or CSP errors
+PASS studio: no JavaScript or CSP errors
+PASS explore: no JavaScript or CSP errors
+
+25 checks, 25 passed, 0 failed

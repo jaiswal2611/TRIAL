@@ -1,0 +1,6 @@
+.env
+php-config/cacert.pem
+php-config/php-local.ini
+php-config/php-errors.log
+private/elevenlabs-key.php
+tools/php/

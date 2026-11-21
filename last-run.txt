@@ -1,0 +1,50 @@
+PASS index: no JavaScript errors
+PASS index: no CSP violations
+PASS index: footer copyright is current
+PASS index: internal links and anchors resolve
+PASS index: external links use rel=noopener
+PASS index: no unexpected third-party scripts or styles
+PASS index: Nandi opens
+PASS index: Nandi escalates bleeding to a call, no diagnosis
+PASS index: Nandi does not invent a price
+PASS index: markup typed into Nandi is shown as text, not run
+PASS treatments: no JavaScript errors
+PASS treatments: no CSP violations
+PASS treatments: footer copyright is current
+PASS treatments: internal links and anchors resolve
+PASS treatments: external links use rel=noopener
+PASS treatments: no unexpected third-party scripts or styles
+PASS treatments: Nandi opens
+PASS treatments: Nandi escalates bleeding to a call, no diagnosis
+PASS treatments: Nandi does not invent a price
+PASS treatments: markup typed into Nandi is shown as text, not run
+PASS studio: no JavaScript errors
+PASS studio: no CSP violations
+PASS studio: footer copyright is current
+PASS studio: internal links and anchors resolve
+PASS studio: external links use rel=noopener
+PASS studio: no unexpected third-party scripts or styles
+PASS studio: Nandi opens
+PASS studio: Nandi escalates bleeding to a call, no diagnosis
+PASS studio: Nandi does not invent a price
+PASS studio: markup typed into Nandi is shown as text, not run
+PASS explore: no JavaScript errors
+PASS explore: no CSP violations
+PASS explore: footer copyright is current
+PASS explore: internal links and anchors resolve
+PASS explore: external links use rel=noopener
+PASS explore: no unexpected third-party scripts or styles
+PASS explore: Nandi opens
+PASS explore: Nandi escalates bleeding to a call, no diagnosis
+PASS explore: Nandi does not invent a price
+PASS explore: markup typed into Nandi is shown as text, not run
+PASS mobile: no horizontal scroll on home | 390
+PASS studio: 50+ greeting occasions | 64
+PASS studio: occasion has a description and several messages
+PASS studio: typed names are not run as markup
+PASS finder: result links to WhatsApp 99283 00175
+PASS booking form: Nandi hand-off pre-fills fields
+PASS no API keys or passwords in any shipped file
+
+47 checks, 47 passed, 0 failed
+exit 0
